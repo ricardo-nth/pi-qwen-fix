@@ -1,0 +1,23 @@
+{
+  "name": "pi-qwen-fix",
+  "version": "1.0.0",
+  "description": "Fixes Qwen API compatibility issues with tool calling and developer role",
+  "main": "index.ts",
+  "keywords": [
+    "pi",
+    "pi-agent",
+    "qwen",
+    "alibaba",
+    "dashscope",
+    "extension"
+  ],
+  "author": "Ricardo Nth",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ricardo-nth/pi-qwen-fix"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": ">=0.55.0"
+  }
+}
