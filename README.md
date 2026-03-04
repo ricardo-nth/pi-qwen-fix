@@ -43,17 +43,15 @@ This extension overrides the `alibaba-qwen` provider with the correct compatibil
 
 ### Option 2: NPM Package (Recommended)
 
-Once published to npm:
-
 ```bash
 npm install -g pi-qwen-fix
 ```
 
-Then add to `~/.pi/agent/settings.json`:
+Add to `~/.pi/agent/settings.json`:
 ```json
 {
   "packages": [
-    "npm:pi-qwen-fix@1.0.0"
+    "npm:pi-qwen-fix@1.0.1"
   ]
 }
 ```
@@ -72,9 +70,15 @@ After installation, all Qwen models from the `alibaba-qwen` provider will work c
 
 ## Configuration
 
-The extension automatically configures all Qwen models with the correct compatibility settings. No additional configuration is needed.
+Set your DashScope API key as an environment variable:
 
-If you need to customize your API key, edit the extension's `index.ts` file and update the `apiKey` field.
+```bash
+export DASHSCOPE_API_KEY="sk-your-key-here"
+```
+
+Add this to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.) to persist it.
+
+Get your API key from [Alibaba Model Studio](https://dashscope.console.aliyun.com/).
 
 ## Why This Exists
 
@@ -101,6 +105,10 @@ The fix requires adding these compat settings to the `alibaba-qwen` provider in 
 ```
 
 And updating the auto-detection in `openai-completions.ts` to recognize Qwen's DashScope API.
+
+## Related
+
+- [pi-ali-code](https://github.com/ricardo-nth/pi-ali-code) — Adds Alibaba Model Studio Coding Plan models (Qwen, GLM, Kimi, MiniMax) via the dedicated `sk-sp-*` endpoint
 
 ## License
 
