@@ -1,10 +1,13 @@
 /**
  * Qwen API Fix for pi
- * 
+ *
  * Fixes compatibility issues with Qwen's DashScope API:
  * 1. Tool arguments must be JSON objects, not stringified JSON
  * 2. Developer role is not supported (use system role instead)
- * 
+ *
+ * Context windows and max output tokens sourced from:
+ * https://www.alibabacloud.com/help/en/model-studio/models
+ *
  * @see https://github.com/ricardo-nth/pi-qwen-fix
  */
 
@@ -12,6 +15,8 @@ import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
 // Set via DASHSCOPE_API_KEY env var or edit this file
 const QWEN_API_KEY = process.env.DASHSCOPE_API_KEY ?? "YOUR_API_KEY";
+
+const compat = { stringifyToolArguments: false, supportsDeveloperRole: false };
 
 export default function (pi: ExtensionAPI) {
   pi.registerProvider("alibaba-qwen", {
@@ -25,9 +30,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: true,
         input: ["text", "image"],
         cost: { input: 0.4, output: 1.2, cacheRead: 0.1, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 32768,
+        maxTokens: 8192,
+        compat
       },
       {
         id: "qwen3.5-plus",
@@ -35,9 +40,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text", "image"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 1000000,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen-turbo-latest",
@@ -45,9 +50,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text", "image"],
         cost: { input: 0.08, output: 0.3, cacheRead: 0.02, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 1000000,
+        maxTokens: 16384,
+        compat
       },
       {
         id: "qwen-coder-plus",
@@ -55,9 +60,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text"],
         cost: { input: 0.15, output: 0.6, cacheRead: 0.0375, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 131072,
+        maxTokens: 8192,
+        compat
       },
       {
         id: "qwen3.5-122b-a10b",
@@ -65,9 +70,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: true,
         input: ["text"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 262144,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3-235b-a22b",
@@ -77,7 +82,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0.8, output: 2.4, cacheRead: 0.2, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen3-30b-a3b",
@@ -87,7 +92,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0.2, output: 0.6, cacheRead: 0.05, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen3.5-flash",
@@ -95,9 +100,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text", "image"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 1000000,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3.5-flash-2026-02-23",
@@ -105,9 +110,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text", "image"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 1000000,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3.5-27b",
@@ -115,9 +120,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 262144,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3.5-35b-a3b",
@@ -125,9 +130,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: true,
         input: ["text"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 262144,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3.5-397b-a17b",
@@ -135,9 +140,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: true,
         input: ["text"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 262144,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3.5-plus-2026-02-15",
@@ -145,9 +150,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: false,
         input: ["text", "image"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
-        maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        contextWindow: 1000000,
+        maxTokens: 65536,
+        compat
       },
       {
         id: "qwen3-max-2026-01-23",
@@ -155,9 +160,9 @@ export default function (pi: ExtensionAPI) {
         reasoning: true,
         input: ["text", "image"],
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-        contextWindow: 128000,
+        contextWindow: 262144,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen3-vl-plus-2025-12-19",
@@ -167,7 +172,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen3-vl-flash-2026-01-22",
@@ -177,7 +182,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen3-coder-next",
@@ -187,7 +192,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen-plus-character",
@@ -197,7 +202,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen-flash-character",
@@ -207,7 +212,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       },
       {
         id: "qwen-mt-lite",
@@ -217,7 +222,7 @@ export default function (pi: ExtensionAPI) {
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
         contextWindow: 128000,
         maxTokens: 32768,
-        compat: { stringifyToolArguments: false, supportsDeveloperRole: false }
+        compat
       }
     ]
   });
