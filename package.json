@@ -1,6 +1,6 @@
 {
   "name": "pi-qwen-fix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fixes Qwen API compatibility issues with tool calling and developer role",
   "main": "index.ts",
   "keywords": [
