@@ -10,8 +10,8 @@
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
-// Your DashScope API key from https://dashscope.console.aliyun.com/
-const QWEN_API_KEY = "YOUR_API_KEY";
+// Set via DASHSCOPE_API_KEY env var or edit this file
+const QWEN_API_KEY = process.env.DASHSCOPE_API_KEY ?? "YOUR_API_KEY";
 
 export default function (pi: ExtensionAPI) {
   pi.registerProvider("alibaba-qwen", {
